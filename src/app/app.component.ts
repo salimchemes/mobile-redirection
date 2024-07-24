@@ -14,9 +14,10 @@ export class AppComponent implements OnInit {
   isApple: boolean | undefined;
   #route = inject(ActivatedRoute)
   ngOnInit(): void {
+    this.isAndroid = this.isAndroidDevice();
+    this.isApple = this.isAppleDevice();
     this.#route.queryParamMap.subscribe((params) => {
       if(params.get('redirect') === 'true') {
-        debugger
         this.redirect();
       }
      })
@@ -24,8 +25,7 @@ export class AppComponent implements OnInit {
   }
 
   public redirect() {
-    this.isAndroid = this.isAndroidDevice();
-    this.isApple = this.isAppleDevice();
+
 
     const storeUrl = this.isAndroid
       ? 'https://play.google.com/store/apps/details?id=com.whatsapp&fbclid=IwAR0PpKE_1z74sc8Q4kxnKQzFODOLmtRmNymvo8Bz6ZJOg5djNQDMvdHSt2c'
