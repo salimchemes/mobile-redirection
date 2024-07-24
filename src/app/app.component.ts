@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,21 +12,30 @@ export class AppComponent implements OnInit {
   title = 'mobile-redirection';
   isAndroid: boolean | undefined;
   isApple: boolean | undefined;
-
+  #route = inject(ActivatedRoute)
   ngOnInit(): void {
+    this.#route.queryParamMap.subscribe((params) => {
+      if(params.get('redirect') === 'true') {
+        debugger
+        this.redirect();
+      }
+     })
+
+  }
+
+  public redirect() {
     this.isAndroid = this.isAndroidDevice();
     this.isApple = this.isAppleDevice();
 
     const storeUrl = this.isAndroid
       ? 'https://play.google.com/store/apps/details?id=com.whatsapp&fbclid=IwAR0PpKE_1z74sc8Q4kxnKQzFODOLmtRmNymvo8Bz6ZJOg5djNQDMvdHSt2c'
       : 'https://apps.apple.com/us/app/whatsapp-messenger/id310633997';
-		const appSchemeUrl = 'whatsapp://send?phone=3416714042';
+    const appSchemeUrl = 'whatsapp://send?phone=3416714042';
 
-		setTimeout(function () {
-			window.location.href = storeUrl;
-		}, 25);
-		window.location.href = appSchemeUrl;
-
+    setTimeout(function () {
+      window.location.href = storeUrl;
+    }, 25);
+    window.location.href = appSchemeUrl;
   }
 
   private isAndroidDevice(): boolean {
