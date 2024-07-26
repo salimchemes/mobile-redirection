@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -24,18 +24,12 @@ export class AppComponent implements OnInit {
 
   }
 
-  public redirect() {
-
-
+  public redirect(): void {
     const storeUrl = this.isAndroid
-      ? 'https://play.google.com/store/apps/details?id=com.whatsapp&fbclid=IwAR0PpKE_1z74sc8Q4kxnKQzFODOLmtRmNymvo8Bz6ZJOg5djNQDMvdHSt2c'
-      : 'https://apps.apple.com/us/app/whatsapp-messenger/id310633997';
-    const appSchemeUrl = 'whatsapp://send?phone=3416714042';
+      ? 'https://play.google.com/store/apps/details?id=com.dsw.android&hl=en_US&gl=US'
+      : 'https://apps.apple.com/us/app/dsw-designer-shoe-warehouse/id918263528';
 
-    setTimeout(function () {
-      window.location.href = storeUrl;
-    }, 25);
-    window.location.href = appSchemeUrl;
+    window.location.href = storeUrl;
   }
 
   private isAndroidDevice(): boolean {
